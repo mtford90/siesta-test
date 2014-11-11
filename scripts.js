@@ -39,11 +39,11 @@
   , data: 'data'
   });
 
-  HackerNews.install();
-
-  HackerNews.GET('item/8582985.json', function (err, item)
-  {
-    console.log('I got me a item!', err);
+  HackerNews.install(function () {
+     HackerNews.GET('item/8582985.json', function (err, item)
+     {
+       console.log('I got me a item!', err);
+     });
   });
-
+  
 }(window, document, jQuery));
