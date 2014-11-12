@@ -12,6 +12,8 @@
 
   HackerNews.mapping('Item', {
 
+    // id: 'id'
+
     attributes: [
       'score'
     , 'time'
@@ -26,31 +28,32 @@
     //   , type: 'OneToMany'
     //   , reverse: 'submitted'
     //   }
-    // , kids: {
-    //     mapping: 'Item'
-    //   , type: 'ManyToOne'
-    //   , reverse: 'parent'
-    //   }
+      kids: {
+        mapping: 'Item'
+      , type: 'OneToMany'
+      , reverse: 'parent'
+      }
     }
   });
 
   HackerNews.descriptor({
-    path: 'item/*'
+    path: '(item/*|topstores.json)'
   , method: 'GET'
   , mapping: 'Item'
   });
 
   HackerNews.install(function ()
   {
-    HackerNews.GET('/topstories.json', function (err, stories)
-    {
-      console.log('stories', stories);
-    });
-
-    // HackerNews.GET('item/8582985.json', function (err, item)
+    // HackerNews.GET('/topstories.json', function (err, stories)
     // {
-    //   console.log('item', item);
+    //   console.log('stories', stories);
     // });
+
+    HackerNews.GET('item/8582985.json', function (err, item)
+    {
+      console.log('err', err);
+      console.log('item', item);
+    });
   });
 
 }(window, document, jQuery));
