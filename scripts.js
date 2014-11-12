@@ -6,11 +6,13 @@
 
   HackerNews.baseURL = 'https://hacker-news.firebaseio.com/v0/';
 
-  var Item = HackerNews.mapping('Item', {
+  // HackerNews.mapping('Stories', {
+  //
+  // });
 
-    id: 'id'
+  HackerNews.mapping('Item', {
 
-  , attributes: [
+    attributes: [
       'score'
     , 'time'
     , 'title'
@@ -26,8 +28,8 @@
     //   }
     // , kids: {
     //     mapping: 'Item'
-    //   , type: 'OneToMany'
-    //   , reverse: 'submitted'
+    //   , type: 'ManyToOne'
+    //   , reverse: 'parent'
     //   }
     }
   });
@@ -35,16 +37,20 @@
   HackerNews.descriptor({
     path: 'item/*'
   , method: 'GET'
-  , mapping: Item
-  , data: 'data'
+  , mapping: 'Item'
   });
 
   HackerNews.install(function ()
   {
-    HackerNews.GET('item/8582985.json', function (err, item)
+    HackerNews.GET('/topstories.json', function (err, stories)
     {
-      console.log('I got me a item!', err);
+      console.log('stories', stories);
     });
+
+    // HackerNews.GET('item/8582985.json', function (err, item)
+    // {
+    //   console.log('item', item);
+    // });
   });
 
 }(window, document, jQuery));
